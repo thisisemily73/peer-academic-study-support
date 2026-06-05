@@ -5,15 +5,38 @@ export default function Home() {
     <>
       <Navbar />
 
-      <main>
+      <main className="hero">
         <div className="container">
-          <h1>Peer Academic Study Support</h1>
+          <div className="hero-content">
+            <span className="hero-tag">
+              Student Learning Platform
+            </span>
 
-          <p>
-            The all-in-one platform for studying,
-            sharing resources, preparing for exams,
-            and succeeding in school.
-          </p>
+            <h1>
+              Learn.
+              <br />
+              Share.
+              <br />
+              Succeed.
+            </h1>
+
+            <p>
+              PASS brings together study resources,
+              SAT preparation, academic communities,
+              and productivity tools into one platform
+              designed for students.
+            </p>
+
+            <div className="hero-buttons">
+              <button className="primary-btn">
+                Get Started
+              </button>
+
+              <button className="secondary-btn">
+                Explore Resources
+              </button>
+            </div>
+          </div>
         </div>
       </main>
     </>
