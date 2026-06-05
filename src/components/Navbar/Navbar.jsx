@@ -9,12 +9,18 @@ export default function Navbar() {
   const { currentUser } = useAuth();
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
+  const confirmed = window.confirm(
+    "Are you sure you want to log out?"
+  );
+
+  if (!confirmed) return;
+
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <nav>
