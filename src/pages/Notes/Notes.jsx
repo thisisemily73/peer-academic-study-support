@@ -1,6 +1,8 @@
 import { useState } from "react";
-import Layout from "../components/Layout/Layout";
-import resources from "../data/resources";
+import Layout from "../../components/Layout/Layout";
+import resources from "../../data/resources";
+import "./Notes.css";
+import { Link } from "react-router-dom";
 
 export default function Notes() {
     const [search, setSearch] = useState("");
@@ -56,9 +58,11 @@ export default function Notes() {
                             <option>Computer Science</option>
                         </select>
 
-                        <button className="primary-btn">
-                            Upload Resource
-                        </button>
+                        <Link to="/upload">
+                            <button className="primary-btn">
+                                Upload Resource
+                            </button>
+                        </Link>
                     </div>
 
                     <div className="resource-grid">

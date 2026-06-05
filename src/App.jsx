@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Notes from "./pages/Notes";
+import Notes from "./pages/Notes/Notes";
 import SATPrep from "./pages/SATPrep";
-import Community from "./pages/Community";
-import Dashboard from "./pages/Dashboard";
-import Login from "./pages/Login";
+import Community from "./pages/Community/Community";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile";
-import Upload from "./pages/Upload";
+import Upload from "./pages//Upload/Upload";
 
 function App() {
   return (
