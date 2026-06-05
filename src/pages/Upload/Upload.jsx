@@ -5,6 +5,8 @@ import { useState } from "react";
 import { auth, db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
+import Layout from "../../components/Layout/Layout";
+
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("Math");
@@ -54,8 +56,9 @@ export default function UploadNotes() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Upload Notes</h2>
+    <Layout>
+      <div style={{ padding: "20px" }}>
+        <h2>Upload Notes</h2>
 
       <input
         type="text"
@@ -96,5 +99,6 @@ export default function UploadNotes() {
         {loading ? "Uploading..." : "Upload"}
       </button>
     </div>
+    </Layout>
   );
 }

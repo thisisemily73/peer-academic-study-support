@@ -1,12 +1,17 @@
-import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
-import resources from "../../data/resources";
+
+import { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 import "./Notes.css";
 import { Link } from "react-router-dom";
 
 export default function Notes() {
     const [search, setSearch] = useState("");
     const [subject, setSubject] = useState("All");
+
+    const [resources, setResources] = useState([]);
 
     const filteredResources = resources.filter((resource) => {
         const matchesSearch =
@@ -20,6 +25,27 @@ export default function Notes() {
 
         return matchesSearch && matchesSubject;
     });
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const querySnapshot = await getDocs(
+                    collection(db, "notes")
+                );
+
+                const notes = querySnapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+
+                setResources(notes);
+            } catch (error) {
+                console.error("Error loading notes:", error);
+            }
+        };
+
+        fetchNotes();
+    }, []);
 
     return (
         <Layout>
@@ -75,7 +101,7 @@ export default function Notes() {
 
                                 <p>{resource.subject}</p>
 
-                                <p>{resource.level}</p>
+                                <p>{resource.description}</p>
                             </div>
                         ))}
                     </div>

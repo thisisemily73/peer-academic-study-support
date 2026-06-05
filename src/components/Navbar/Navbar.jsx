@@ -17,13 +17,13 @@ export default function Navbar() {
         </div>
 
         <div className="nav-actions">
-          <button className="login-btn">
+          <Link to="/login" className="login-btn">
             Login
-          </button>
+          </Link>
 
-          <button className="get-started-btn">
+          <Link to="/signup" className="get-started-btn">
             Get Started
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
