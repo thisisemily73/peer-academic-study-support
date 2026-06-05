@@ -1,21 +1,26 @@
 import { useState } from "react";
-import { auth, db, storage } from "../../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { auth, db, storage } from "../../firebase";
+// import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+import { auth, db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export default function UploadNotes() {
-  const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("Math");
+  const [description, setDescription] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
+
   const handleUpload = async () => {
-    if (!file || !title) {
-      alert("Add a title and file first.");
+    if (!title || !fileUrl) {
+      alert("Please enter a title and resource link.");
       return;
     }
 
     const user = auth.currentUser;
+
     if (!user) {
       alert("You must be logged in.");
       return;
@@ -24,34 +29,21 @@ export default function UploadNotes() {
     try {
       setLoading(true);
 
-      // 1. Create storage path
-      const fileRef = ref(
-        storage,
-        `notes/${user.uid}/${Date.now()}_${file.name}`
-      );
-
-      // 2. Upload file
-      await uploadBytes(fileRef, file);
-
-      // 3. Get URL
-      const fileUrl = await getDownloadURL(fileRef);
-
-      // 4. Save metadata to Firestore
       await addDoc(collection(db, "notes"), {
         title,
         subject,
+        description,
         fileUrl,
-        fileName: file.name,
         uploadedBy: user.uid,
         createdAt: serverTimestamp(),
       });
 
-      alert("Upload successful!");
+      alert("Resource uploaded!");
 
-      // reset
       setTitle("");
-      setFile(null);
       setSubject("Math");
+      setDescription("");
+      setFileUrl("");
 
     } catch (err) {
       console.error(err);
@@ -83,9 +75,19 @@ export default function UploadNotes() {
 
       <br /><br />
 
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+
+      <br /><br />
+
       <input
-        type="file"
-        onChange={(e) => setFile(e.target.files[0])}
+        type="url"
+        placeholder="Google Drive / OneDrive / Dropbox link"
+        value={fileUrl}
+        onChange={(e) => setFileUrl(e.target.value)}
       />
 
       <br /><br />
