@@ -102,6 +102,15 @@ export default function Notes() {
                                 <p>{resource.subject}</p>
 
                                 <p>{resource.description}</p>
+
+                                <a
+                                    href={resource.fileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="open-resource-btn"
+                                >
+                                    Open Resource
+                                </a>
                             </div>
                         ))}
                     </div>

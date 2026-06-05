@@ -1,6 +1,10 @@
 import Layout from "../components/Layout/Layout";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function Home() {
+    const { currentUser } = useAuth();
+
     return (
         <Layout>
 
@@ -27,10 +31,15 @@ export default function Home() {
                         </p>
 
                         <div className="hero-buttons">
-                            <button className="primary-btn">
-                                Get Started
-                            </button>
-
+                            {currentUser ? (
+                                <button className="primary-btn">
+                                    My Dashboard
+                                </button>
+                            ) : (
+                                <button className="primary-btn">
+                                    Get Started
+                                </button>
+                            )}
                             <button className="secondary-btn">
                                 Explore Resources
                             </button>

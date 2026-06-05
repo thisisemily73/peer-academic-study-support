@@ -1,7 +1,21 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
+import { useAuth } from "../../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+
 export default function Navbar() {
+  const { currentUser } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <nav>
       <div className="nav-container">
@@ -17,13 +31,30 @@ export default function Navbar() {
         </div>
 
         <div className="nav-actions">
-          <Link to="/login" className="login-btn">
-            Login
-          </Link>
+          {currentUser ? (
+            <>
+              <Link to="/profile" className="login-btn">
+                Profile
+              </Link>
 
-          <Link to="/signup" className="get-started-btn">
-            Get Started
-          </Link>
+              <button
+                onClick={handleLogout}
+                className="get-started-btn"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="login-btn">
+                Login
+              </Link>
+
+              <Link to="/signup" className="get-started-btn">
+                Get Started
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>

@@ -73,3 +73,25 @@
 
   border: 1px solid var(--border);
 }
+
+.open-resource-btn {
+  display: inline-block;
+
+  margin-top: 1rem;
+
+  padding: 0.5rem 1rem;
+
+  background: var(--primary);
+
+  color: white;
+
+  border-radius: var(--radius);
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+.open-resource-btn:hover {
+  background: var(--primary-dark);
+}
