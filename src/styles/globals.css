@@ -248,3 +248,23 @@ img {
 .resource-card:hover {
   transform: translateY(-4px);
 }
+
+.filter-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+
+  flex-wrap: wrap;
+}
+
+.filter-row select {
+  padding: 0.8rem;
+
+  border-radius: var(--radius);
+
+  border: 1px solid var(--border);
+}

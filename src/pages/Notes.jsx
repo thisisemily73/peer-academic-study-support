@@ -1,47 +1,82 @@
+import { useState } from "react";
 import Layout from "../components/Layout/Layout";
+import resources from "../data/resources";
 
 export default function Notes() {
-  return (
-    <Layout>
-      <section className="notes-page">
-        <div className="container">
-          <h1>Study Resources</h1>
+    const [search, setSearch] = useState("");
+    const [subject, setSubject] = useState("All");
 
-          <p className="notes-subtitle">
-            Discover notes, study guides, formula sheets,
-            and other academic resources shared by students.
-          </p>
+    const filteredResources = resources.filter((resource) => {
+        const matchesSearch =
+            resource.title
+                .toLowerCase()
+                .includes(search.toLowerCase());
 
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search resources..."
-            />
-          </div>
+        const matchesSubject =
+            subject === "All" ||
+            resource.subject === subject;
 
-          <div className="resource-grid">
-            <div className="resource-card">
-              <h3>Biology Unit 3 Notes</h3>
-              <p>Biology • Grade 10</p>
-            </div>
+        return matchesSearch && matchesSubject;
+    });
 
-            <div className="resource-card">
-              <h3>AP Macro Unit 2 Review</h3>
-              <p>Economics • AP</p>
-            </div>
+    return (
+        <Layout>
+            <section className="notes-page">
+                <div className="container">
+                    <h1>Study Resources</h1>
 
-            <div className="resource-card">
-              <h3>SAT Grammar Cheat Sheet</h3>
-              <p>SAT Prep</p>
-            </div>
+                    <p className="notes-subtitle">
+                        Discover notes, study guides, formula sheets,
+                        and other academic resources shared by students.
+                    </p>
 
-            <div className="resource-card">
-              <h3>Geometry Formula Guide</h3>
-              <p>Mathematics</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </Layout>
-  );
+                    <div className="search-bar">
+                        <input
+                            type="text"
+                            placeholder="Search resources..."
+                            value={search}
+                            onChange={(e) =>
+                                setSearch(e.target.value)
+                            }
+                        />
+                    </div>
+
+                    <div className="filter-row">
+                        <select
+                            value={subject}
+                            onChange={(e) =>
+                                setSubject(e.target.value)
+                            }
+                        >
+                            <option>All</option>
+                            <option>Biology</option>
+                            <option>Economics</option>
+                            <option>SAT</option>
+                            <option>Mathematics</option>
+                            <option>Computer Science</option>
+                        </select>
+
+                        <button className="primary-btn">
+                            Upload Resource
+                        </button>
+                    </div>
+
+                    <div className="resource-grid">
+                        {filteredResources.map((resource) => (
+                            <div
+                                key={resource.id}
+                                className="resource-card"
+                            >
+                                <h3>{resource.title}</h3>
+
+                                <p>{resource.subject}</p>
+
+                                <p>{resource.level}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </Layout>
+    );
 }
