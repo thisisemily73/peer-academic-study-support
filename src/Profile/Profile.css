@@ -1,0 +1,26 @@
+.profile-page {
+  padding: 3rem 0;
+}
+
+.profile-card {
+  text-align: center;
+}
+
+.profile-email {
+  margin-top: 0.5rem;
+}
+
+.upload-count {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.uploads-heading {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.uploads-grid {
+  display: grid;
+  gap: 1.25rem;
+}

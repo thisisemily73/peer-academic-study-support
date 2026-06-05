@@ -6,7 +6,7 @@ import SATPrep from "./pages/SATPrep";
 import Community from "./pages/Community/Community";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Login from "./pages/Login/Login";
-import Profile from "./pages/Profile";
+import Profile from "./Profile/Profile";
 import Upload from "./pages//Upload/Upload";
 
 function App() {
