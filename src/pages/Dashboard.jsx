@@ -1,3 +1,10 @@
+import Layout from "../components/Layout/Layout";
+
+
 export default function Dashboard() {
-  return <h1>Dashboard Page</h1>;
+  return (
+    <Layout>
+      <h1>Dashboard Page</h1>
+    </Layout>
+  );
 }

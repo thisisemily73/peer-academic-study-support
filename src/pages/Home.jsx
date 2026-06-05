@@ -1,9 +1,8 @@
-import Navbar from "../components/Navbar/Navbar";
+import Layout from "../components/Layout/Layout";
 
 export default function Home() {
     return (
-        <>
-            <Navbar />
+        <Layout>
 
             <main className="hero">
                 <div className="container">
@@ -83,6 +82,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-        </>
+        </Layout>
     );
 }

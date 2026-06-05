@@ -1,3 +1,9 @@
+import Layout from "../components/Layout/Layout";
+
 export default function Upload() {
-  return <h1>Upload Page</h1>;
+  return (
+    <Layout>
+      <h1>Upload Page</h1>
+    </Layout>
+  );
 }

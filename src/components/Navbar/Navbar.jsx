@@ -5,7 +5,9 @@ export default function Navbar() {
   return (
     <nav>
       <div className="nav-container">
-        <div className="logo">PASS</div>
+        <Link to="/" className="logo">
+          PASS
+        </Link>
 
         <div className="nav-links">
           <Link to="/notes">Notes</Link>
