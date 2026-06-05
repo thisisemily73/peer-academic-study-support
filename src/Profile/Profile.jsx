@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import {
     collection,
-    getDocs
+    getDocs,
+    deleteDoc,
+    doc
 } from "firebase/firestore";
 
 export default function Profile() {
@@ -36,6 +38,27 @@ export default function Profile() {
             fetchUploads();
         }
     }, [currentUser]);
+
+    const handleDelete = async (noteId) => {
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this resource?"
+        );
+
+        if (!confirmed) return;
+
+        try {
+            await deleteDoc(doc(db, "notes", noteId));
+
+            setUploads(
+                uploads.filter(
+                    (note) => note.id !== noteId
+                )
+            );
+        } catch (error) {
+            console.error(error);
+            alert("Failed to delete resource.");
+        }
+    };
 
     return (
         <Layout>
@@ -76,14 +99,23 @@ export default function Profile() {
                                     {note.description}
                                 </p>
 
-                                <a
-                                    href={note.fileUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="resource-link"
-                                >
-                                    Open Resource →
-                                </a>
+                                <div className="resource-actions">
+                                    <a
+                                        href={note.fileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="resource-link"
+                                    >
+                                        Open Resource →
+                                    </a>
+
+                                    <button
+                                        className="delete-btn"
+                                        onClick={() => handleDelete(note.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

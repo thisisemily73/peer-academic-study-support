@@ -9,18 +9,18 @@ export default function Navbar() {
   const { currentUser } = useAuth();
 
   const handleLogout = async () => {
-  const confirmed = window.confirm(
-    "Are you sure you want to log out?"
-  );
+    const confirmed = window.confirm(
+      "Are you sure you want to log out?"
+    );
 
-  if (!confirmed) return;
+    if (!confirmed) return;
 
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <nav>
@@ -39,13 +39,13 @@ export default function Navbar() {
         <div className="nav-actions">
           {currentUser ? (
             <>
-              <Link to="/profile" className="login-btn">
-                Profile
+              <Link to="/profile" className="profile-link">
+                {currentUser.displayName}
               </Link>
 
               <button
                 onClick={handleLogout}
-                className="get-started-btn"
+                className="logout-btn"
               >
                 Logout
               </button>
