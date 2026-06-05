@@ -1,12 +1,21 @@
+import Navbar from "../components/Navbar";
+
 export default function Home() {
   return (
-    <main>
-      <h1>PASS</h1>
-      <h2>Peer Academic Study Support</h2>
+    <>
+      <Navbar />
 
-      <p>
-        Share notes. Learn together. Succeed together.
-      </p>
-    </main>
+      <main>
+        <div className="container">
+          <h1>Peer Academic Study Support</h1>
+
+          <p>
+            The all-in-one platform for studying,
+            sharing resources, preparing for exams,
+            and succeeding in school.
+          </p>
+        </div>
+      </main>
+    </>
   );
 }
