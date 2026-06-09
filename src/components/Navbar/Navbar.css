@@ -6,7 +6,7 @@ nav {
 
   border-bottom: 1px solid var(--border);
 
-  background: rgba(255, 255, 255, 0.9);
+  background: --var(--navbar-bg);
 
   backdrop-filter: blur(10px);
 
@@ -85,6 +85,18 @@ nav {
 
 .logout-btn:hover {
   color: #dc2626;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+
+  font-size: 1.2rem;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0.4rem;
 }
 
 @media (max-width: 768px) {

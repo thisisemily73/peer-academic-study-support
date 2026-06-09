@@ -5,8 +5,11 @@ import { useAuth } from "../../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
+import { useTheme } from "../../context/ThemeContext";
+
 export default function Navbar() {
   const { currentUser } = useAuth();
+  const { darkMode, toggleTheme } = useTheme();
 
   const handleLogout = async () => {
     const confirmed = window.confirm(
@@ -37,6 +40,13 @@ export default function Navbar() {
         </div>
 
         <div className="nav-actions">
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle"
+          >
+            {darkMode ? "☀️" : "🌙"}
+          </button>
+
           {currentUser ? (
             <>
               <Link to="/profile" className="profile-link">
