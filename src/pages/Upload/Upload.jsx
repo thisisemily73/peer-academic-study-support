@@ -17,14 +17,14 @@ export default function UploadNotes() {
 
   const handleUpload = async () => {
     if (!title || !fileUrl) {
-      alert("Please enter a title and resource link.");
+      toast.error("Please enter a title and resource link.");
       return;
     }
 
     const user = auth.currentUser;
 
     if (!user) {
-      alert("You must be logged in.");
+      toast.error("You must be logged in.");
       return;
     }
 
@@ -40,7 +40,7 @@ export default function UploadNotes() {
         createdAt: serverTimestamp(),
       });
 
-      alert("Resource uploaded!");
+      toast.success("Resource uploaded!");
 
       setTitle("");
       setSubject("Math");
@@ -49,7 +49,7 @@ export default function UploadNotes() {
 
     } catch (err) {
       console.error(err);
-      alert("Upload failed.");
+      toast.error("Upload failed.");
     } finally {
       setLoading(false);
     }

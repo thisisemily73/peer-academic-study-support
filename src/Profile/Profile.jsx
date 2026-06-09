@@ -56,7 +56,7 @@ export default function Profile() {
             );
         } catch (error) {
             console.error(error);
-            alert("Failed to delete resource.");
+            toast.error("Failed to delete resource.");
         }
     };
 

@@ -10,10 +10,10 @@ export default function Login() {
 
       const result = await signInWithPopup(auth, provider);
 
-      alert(`Welcome ${result.user.displayName}!`);
+      toast.success(`Welcome ${result.user.displayName}!`);
     } catch (error) {
       console.error(error);
-      alert("Login failed.");
+      toast.error("Login failed.");
     }
   };
 

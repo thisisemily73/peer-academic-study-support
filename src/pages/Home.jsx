@@ -1,5 +1,6 @@
 import Layout from "../components/Layout/Layout";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 
 export default function Home() {
@@ -32,17 +33,17 @@ export default function Home() {
 
                         <div className="hero-buttons">
                             {currentUser ? (
-                                <button className="primary-btn">
-                                    My Dashboard
-                                </button>
+                                <Link className="primary-btn" to="/profile">
+                                    My Profile
+                                </Link>
                             ) : (
-                                <button className="primary-btn">
+                                <Link className="primary-btn" to="/signup">
                                     Get Started
-                                </button>
+                                </Link>
                             )}
-                            <button className="secondary-btn">
+                            <Link className="secondary-btn" to="/notes">
                                 Explore Resources
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
