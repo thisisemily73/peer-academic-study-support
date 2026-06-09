@@ -5,15 +5,73 @@ import { useState } from "react";
 import { auth, db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
+import { toast } from "react-toastify";
+
 import Layout from "../../components/Layout/Layout";
+
+import "./Upload.css";
+import { Link } from "react-router-dom";
 
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
-  const [subject, setSubject] = useState("Math");
+  const [subject, setSubject] = useState("Mathematics");
   const [description, setDescription] = useState("");
+  const [subtopic, setSubtopic] = useState("");
+  const [level, setLevel] = useState("CP");
   const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
+
+  const subtopics = {
+    Mathematics: [
+      "Algebra I",
+      "Algebra II",
+      "Geometry",
+      "Precalculus",
+      "Calculus AB",
+      "Calculus BC",
+      "Statistics"
+    ],
+
+    Science: [
+      "Biology",
+      "Chemistry",
+      "Physics",
+      "Environmental Science"
+    ],
+
+    English: [
+      "Literature",
+      "Writing",
+      "Grammar"
+    ],
+
+    History: [
+      "World History",
+      "US History",
+      "Government"
+    ],
+
+    Economics: [
+      "Microeconomics",
+      "Macroeconomics"
+    ],
+
+    'Computer Science': [
+      "Programming",
+      "Data Structures",
+      "Web Development"
+    ],
+
+    SAT: [
+      "Reading",
+      "Writing",
+      "Algebra",
+      "Advanced Math",
+      "Problem Solving & Data Analysis",
+      "Geometry & Trigonometry"
+    ]
+  };
 
   const handleUpload = async () => {
     if (!title || !fileUrl) {
@@ -33,17 +91,24 @@ export default function UploadNotes() {
 
       await addDoc(collection(db, "notes"), {
         title,
-        subject,
         description,
+
+        subject,
+        subtopic,
+        level,
+
         fileUrl,
         uploadedBy: user.uid,
+
         createdAt: serverTimestamp(),
       });
 
       toast.success("Resource uploaded!");
 
       setTitle("");
-      setSubject("Math");
+      setSubject("");
+      setSubtopic("");
+      setLevel("CP");
       setDescription("");
       setFileUrl("");
 
@@ -57,48 +122,85 @@ export default function UploadNotes() {
 
   return (
     <Layout>
-      <div style={{ padding: "20px" }}>
-        <h2>Upload Notes</h2>
+      <div className="upload-page">
+        <div className="upload-form">
+          <h2>📤 Share a Resource</h2>
 
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+          <p className="upload-subtitle">
+            Help students succeed by sharing notes,
+            study guides, formula sheets, and other
+            academic resources.
+          </p>
 
-      <br /><br />
+          <div className="form-group">
+            <select
+              value={subject}
+              onChange={(e) => {
+                setSubject(e.target.value);
+                setSubtopic("");
+              }}
+            >
+              <option value="">Select Subject</option>
+              <option>Mathematics</option>
+              <option>Science</option>
+              <option>English</option>
+              <option>History</option>
+              <option>Economics</option>
+              <option>Computer Science</option>
+              <option>SAT</option>
+            </select>
+          </div>
 
-      <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-        <option>Math</option>
-        <option>Science</option>
-        <option>English</option>
-        <option>History</option>
-      </select>
+          <div className="form-group">
+            <select
+              value={subtopic}
+              onChange={(e) => setSubtopic(e.target.value)}
+            >
+              <option value="">Select Subtopic</option>
 
-      <br /><br />
+              {subtopics[subject]?.map((topic) => (
+                <option key={topic}>
+                  {topic}
+                </option>
+              ))}
+            </select>
+          </div>
 
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
+          <div className="form-group">
+            <select
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+            >
+              <option>CP</option>
+              <option>Honors</option>
+              <option>AP</option>
+              <option>College</option>
+              <option>SAT</option>
+            </select>
+          </div>
 
-      <br /><br />
+          <div className="form-group">
+            <textarea
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
 
-      <input
-        type="url"
-        placeholder="Google Drive / OneDrive / Dropbox link"
-        value={fileUrl}
-        onChange={(e) => setFileUrl(e.target.value)}
-      />
+          <div className="form-group">
+            <input
+              type="url"
+              placeholder="Google Drive / OneDrive / Dropbox link"
+              value={fileUrl}
+              onChange={(e) => setFileUrl(e.target.value)}
+            />
+          </div>
 
-      <br /><br />
-
-      <button onClick={handleUpload} disabled={loading}>
-        {loading ? "Uploading..." : "Upload"}
-      </button>
-    </div>
+          <button className="upload-btn" onClick={handleUpload} disabled={loading}>
+            {loading ? "Uploading..." : "Upload"}
+          </button>
+        </div>
+      </div>
     </Layout>
   );
 }

@@ -95,3 +95,17 @@
 .open-resource-btn:hover {
   background: var(--primary-dark);
 }
+
+.save-btn {
+    margin-top: 0.75rem;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    font-weight: 600;
+
+    cursor: pointer;
+}

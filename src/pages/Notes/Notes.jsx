@@ -1,8 +1,14 @@
 import Layout from "../../components/Layout/Layout";
 
 import { useState, useEffect } from "react";
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../../firebase";
+
+import {
+    collection,
+    getDocs,
+    addDoc,
+    serverTimestamp
+} from "firebase/firestore";
 
 import "./Notes.css";
 import { Link } from "react-router-dom";
@@ -46,6 +52,31 @@ export default function Notes() {
 
         fetchNotes();
     }, []);
+
+    const handleSave = async (resource) => {
+        const user = auth.currentUser;
+
+        if (!user) {
+            toast.error("Please log in to save resources.");
+            return;
+        }
+
+        try {
+            await addDoc(
+                collection(db, "savedResources"),
+                {
+                    userId: user.uid,
+                    noteId: resource.id,
+                    savedAt: serverTimestamp()
+                }
+            );
+
+            toast.success("Resource saved!");
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to save resource.");
+        }
+    };
 
     return (
         <Layout>
@@ -99,7 +130,13 @@ export default function Notes() {
                             >
                                 <h3>{resource.title}</h3>
 
-                                <p>{resource.subject}</p>
+                                <p>
+                                    {resource.subject}
+                                    {" • "}
+                                    {resource.level}
+                                    {" "}
+                                    {resource.subtopic}
+                                </p>
 
                                 <p>{resource.description}</p>
 
@@ -111,6 +148,12 @@ export default function Notes() {
                                 >
                                     Open Resource
                                 </a>
+                                <button
+                                    className="save-btn"
+                                    onClick={() => handleSave(resource)}
+                                >
+                                    ⭐ Save
+                                </button>
                             </div>
                         ))}
                     </div>
