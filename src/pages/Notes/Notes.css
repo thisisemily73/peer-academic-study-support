@@ -97,15 +97,30 @@
 }
 
 .save-btn {
-    margin-top: 0.75rem;
+  margin-left: 0.75rem;
 
-    border: none;
+  padding: 0.65rem 1rem;
 
-    background: transparent;
+  border: 1px solid var(--border);
 
-    color: var(--primary);
+  border-radius: 10px;
 
-    font-weight: 600;
+  background: var(--surface);
 
-    cursor: pointer;
+  color: var(--text);
+
+  font-weight: 600;
+
+  transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.save-btn.saved {
+  background: var(--primary);
+  color: white;
 }

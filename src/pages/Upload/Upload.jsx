@@ -181,6 +181,14 @@ export default function UploadNotes() {
 
           <div className="form-group">
             <textarea
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          
+          <div className="form-group">
+            <textarea
               placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}

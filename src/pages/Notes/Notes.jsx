@@ -2,12 +2,16 @@ import Layout from "../../components/Layout/Layout";
 
 import { useState, useEffect } from "react";
 import { auth, db } from "../../firebase";
+import { toast } from "react-toastify";
 
 import {
     collection,
     getDocs,
     addDoc,
-    serverTimestamp
+    deleteDoc,
+    serverTimestamp,
+    query,
+    where
 } from "firebase/firestore";
 
 import "./Notes.css";
@@ -18,6 +22,7 @@ export default function Notes() {
     const [subject, setSubject] = useState("All");
 
     const [resources, setResources] = useState([]);
+    const [savedResources, setSavedResources] = useState([]);
 
     const filteredResources = resources.filter((resource) => {
         const matchesSearch =
@@ -46,11 +51,39 @@ export default function Notes() {
 
                 setResources(notes);
             } catch (error) {
+                toast.error("Error loading notes.");
                 console.error("Error loading notes:", error);
             }
         };
 
         fetchNotes();
+    }, []);
+
+    useEffect(() => {
+        const fetchSavedResources = async () => {
+            const user = auth.currentUser;
+
+            if (!user) return;
+
+            try {
+                const savedSnapshot = await getDocs(
+                    query(
+                        collection(db, "savedResources"),
+                        where("userId", "==", user.uid)
+                    )
+                );
+
+                const savedIds = savedSnapshot.docs.map(
+                    doc => doc.data().noteId
+                );
+
+                setSavedResources(savedIds);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchSavedResources();
     }, []);
 
     const handleSave = async (resource) => {
@@ -62,6 +95,30 @@ export default function Notes() {
         }
 
         try {
+            const existingQuery = query(
+                collection(db, "savedResources"),
+                where("userId", "==", user.uid),
+                where("noteId", "==", resource.id)
+            );
+
+            const existingDocs = await getDocs(existingQuery);
+
+            // UNSAVE
+            if (!existingDocs.empty) {
+                await deleteDoc(existingDocs.docs[0].ref);
+
+                setSavedResources(prev =>
+                    prev.filter(id => id !== resource.id)
+                );
+
+                toast.info(
+                    "Removed from saved resources."
+                );
+
+                return;
+            }
+
+            // SAVE
             await addDoc(
                 collection(db, "savedResources"),
                 {
@@ -71,10 +128,18 @@ export default function Notes() {
                 }
             );
 
+            setSavedResources(prev => [
+                ...prev,
+                resource.id
+            ]);
+
             toast.success("Resource saved!");
+
         } catch (error) {
             console.error(error);
-            toast.error("Failed to save resource.");
+            toast.error(
+                "Failed to update saved resource."
+            );
         }
     };
 
@@ -149,10 +214,15 @@ export default function Notes() {
                                     Open Resource
                                 </a>
                                 <button
-                                    className="save-btn"
+                                    className={`save-btn ${savedResources.includes(resource.id)
+                                            ? "saved"
+                                            : ""
+                                        }`}
                                     onClick={() => handleSave(resource)}
                                 >
-                                    ⭐ Save
+                                    {savedResources.includes(resource.id)
+                                        ? "★ Saved"
+                                        : "☆ Save"}
                                 </button>
                             </div>
                         ))}

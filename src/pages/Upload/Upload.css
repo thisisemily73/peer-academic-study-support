@@ -104,6 +104,7 @@
 
 .upload-btn:hover {
   transform: translateY(-1px);
+  background: var(--primary-dark);
 }
 
 .upload-btn:disabled {
