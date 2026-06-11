@@ -3,7 +3,7 @@ import "./Profile.css";
 import { useAuth } from "../context/AuthContext";
 
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import {
     collection,
     getDocs,
@@ -13,10 +13,15 @@ import {
     where
 } from "firebase/firestore";
 
+import { deleteUser } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 export default function Profile() {
     const { currentUser } = useAuth();
     const [uploads, setUploads] = useState([]);
     const [savedResources, setSavedResources] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUploads = async () => {
@@ -102,6 +107,35 @@ export default function Profile() {
         fetchSavedResources();
     }, [currentUser]);
 
+    const handleDeleteAccount = async () => {
+        const confirmed = window.confirm(
+            "Delete your PASS account? This cannot be undone."
+        );
+
+        if (!confirmed) return;
+
+        try {
+            await deleteUser(auth.currentUser);
+
+            toast.success("Account deleted.");
+
+            navigate("/");
+        } catch (error) {
+            console.error(error);
+
+            if (
+                error.code ===
+                "auth/requires-recent-login"
+            ) {
+                toast.error(
+                    "Please log out and sign in again before deleting your account."
+                );
+            } else {
+                toast.error("Failed to delete account.");
+            }
+        }
+    };
+
     return (
         <Layout>
             <section className="profile-page">
@@ -181,7 +215,12 @@ export default function Profile() {
                             </div>
                         ))}
                     </div>
-
+                    <button
+                        className="danger-btn"
+                        onClick={handleDeleteAccount}
+                    >
+                        Delete Account
+                    </button>
                 </div>
             </section>
         </Layout>

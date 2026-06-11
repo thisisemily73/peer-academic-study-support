@@ -102,3 +102,23 @@
 .profile-stats span {
   color: var(--text-light);
 }
+
+.danger-btn {
+  margin-top: 1rem;
+
+  border: none;
+
+  background: #dc2626;
+
+  color: white;
+
+  padding: 0.75rem 1.25rem;
+
+  border-radius: var(--radius);
+
+  font-weight: 600;
+}
+
+.danger-btn:hover {
+  opacity: 0.9;
+}
