@@ -36,16 +36,16 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Navigation
 
-* [ ] Build Navbar component
+* [x] Build Navbar component
 * [ ] Add PASS logo
-* [ ] Add navigation links
-* [ ] Add login/signup buttons
+* [x] Add navigation links
+* [x] Add login/signup buttons
 
 ## Hero Section
 
-* [ ] Create hero section
-* [ ] Add mission statement
-* [ ] Add call-to-action buttons
+* [x] Create hero section
+* [x] Add mission statement
+* [x] Add call-to-action buttons
 
 ## Features Section
 
@@ -56,9 +56,9 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Footer
 
-* [ ] Build footer component
-* [ ] Add links
-* [ ] Add copyright
+* [x] Build footer component
+* [x] Add links
+* [x] Add copyright
 
 ---
 
@@ -66,14 +66,14 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## React Router
 
-* [ ] Install React Router
-* [ ] Create Home page
-* [ ] Create Notes page
+* [x] Install React Router
+* [x] Create Home page
+* [x] Create Notes page
 * [ ] Create SAT Prep page
-* [ ] Create Upload page
-* [ ] Create Profile page
-* [ ] Create Login page
-* [ ] Create Signup page
+* [x] Create Upload page
+* [x] Create Profile page
+* [x] Create Login page
+* [x] Create Signup page
 
 ---
 
@@ -81,16 +81,16 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Firebase Setup
 
-* [ ] Create Firebase project
-* [ ] Configure Firebase
-* [ ] Connect Firebase to React
+* [x] Create Firebase project
+* [x] Configure Firebase
+* [x] Connect Firebase to React
 
 ## User Accounts
 
-* [ ] Email signup
-* [ ] Email login
-* [ ] Google login
-* [ ] Logout functionality
+* [x] Email signup
+* [x] Email login
+* [x] Google login
+* [x] Logout functionality
 
 ## Protected Routes
 
@@ -103,15 +103,15 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Profile System
 
-* [ ] Create profile page
-* [ ] Display user information
+* [x] Create profile page
+* [x] Display user information
 * [ ] Edit profile information
 * [ ] Upload profile picture
 
 ## Dashboard
 
-* [ ] My uploads section
-* [ ] Saved resources section
+* [x] My uploads section
+* [x] Saved resources section
 * [ ] Account settings section
 
 ---
@@ -121,7 +121,7 @@ Goal: Build a functional platform where students can create accounts, upload res
 ## Storage
 
 * [ ] Configure Firebase Storage
-* [ ] Configure Firestore
+* [x] Configure Firestore
 
 ## Upload System
 
@@ -131,10 +131,10 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Resource Information
 
-* [ ] Title
-* [ ] Subject
-* [ ] Description
-* [ ] Grade level
+* [x] Title
+* [x] Subject
+* [x] Description
+* [x] Grade level
 * [ ] Upload date
 
 ---
@@ -148,14 +148,14 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Search
 
-* [ ] Search resources
+* [x] Search resources
 * [ ] Subject filters
 * [ ] Grade filters
 
 ## Saving Resources
 
-* [ ] Save resources
-* [ ] Remove saved resources
+* [x] Save resources
+* [x] Remove saved resources
 
 ---
 
