@@ -6,10 +6,14 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
 import { useTheme } from "../../context/ThemeContext";
+import { toast } from "react-toastify";
+
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const { currentUser } = useAuth();
   const { darkMode, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     const confirmed = window.confirm(
@@ -20,8 +24,11 @@ export default function Navbar() {
 
     try {
       await signOut(auth);
+
+      navigate("/");
     } catch (error) {
       console.error(error);
+      toast.error("Failed to log out.");
     }
   };
 

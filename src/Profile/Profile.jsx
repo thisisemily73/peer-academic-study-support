@@ -8,12 +8,15 @@ import {
     collection,
     getDocs,
     deleteDoc,
-    doc
+    doc,
+    query,
+    where
 } from "firebase/firestore";
 
 export default function Profile() {
     const { currentUser } = useAuth();
     const [uploads, setUploads] = useState([]);
+    const [savedResources, setSavedResources] = useState([]);
 
     useEffect(() => {
         const fetchUploads = async () => {
@@ -60,23 +63,82 @@ export default function Profile() {
         }
     };
 
+    useEffect(() => {
+        const fetchSavedResources = async () => {
+            if (!currentUser) return;
+
+            try {
+                const savedSnapshot = await getDocs(
+                    query(
+                        collection(db, "savedResources"),
+                        where("userId", "==", currentUser.uid)
+                    )
+                );
+
+                const savedIds = savedSnapshot.docs.map(
+                    doc => doc.data().noteId
+                );
+
+                const notesSnapshot = await getDocs(
+                    collection(db, "notes")
+                );
+
+                const savedNotes = notesSnapshot.docs
+                    .map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }))
+                    .filter(note =>
+                        savedIds.includes(note.id)
+                    );
+
+                setSavedResources(savedNotes);
+
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchSavedResources();
+    }, [currentUser]);
+
     return (
         <Layout>
             <section className="profile-page">
                 <div className="container">
 
                     <div className="profile-card">
-                        <h1>My Profile</h1>
 
-                        <h2>{currentUser?.displayName}</h2>
+                        {currentUser?.photoURL ? (
+                            <img
+                                src={currentUser.photoURL}
+                                alt="Profile"
+                                className="profile-avatar"
+                            />
+                        ) : (
+                            <div className="profile-avatar-fallback">
+                                {currentUser?.displayName?.charAt(0) || "P"}
+                            </div>
+                        )}
+
+                        <h1>{currentUser?.displayName}</h1>
 
                         <p className="profile-email">
                             {currentUser?.email}
                         </p>
 
-                        <p className="upload-count">
-                            {uploads.length} Resources Uploaded
-                        </p>
+                        <div className="profile-stats">
+                            <div>
+                                <strong>{uploads.length}</strong>
+                                <span>Uploads</span>
+                            </div>
+
+                            <div>
+                                <strong>{savedResources.length}</strong>
+                                <span>Saved</span>
+                            </div>
+                        </div>
+
                     </div>
 
                     <h3 className="uploads-heading">

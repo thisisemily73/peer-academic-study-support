@@ -45,42 +45,63 @@ nav {
 
 .nav-actions {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.login-btn {
-  background: transparent;
-  border: none;
-}
+.login-btn,
+.profile-link,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-.get-started-btn {
-  border: none;
+  height: 40px;
 
-  background: var(--primary);
-  color: white;
-
-  padding: 0.8rem 1.25rem;
+  padding: 0 1rem;
 
   border-radius: var(--radius);
 
   font-weight: 600;
-}
 
-.profile-link {
-  font-weight: 600;
   color: var(--text);
 
-  display: flex;
-  align-items: center;
+  transition: 0.2s ease;
+}
+
+.login-btn:hover,
+.profile-link:hover,
+.logout-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .logout-btn {
-  background: none;
   border: none;
+  background: transparent;
+}
 
-  color: var(--text-light);
+.get-started-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 40px;
+
+  padding: 0 1.25rem;
+
+  border-radius: var(--radius);
+
+  background: var(--primary);
+
+  color: white;
 
   font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.get-started-btn:hover {
+  background: var(--primary-dark);
 }
 
 .logout-btn:hover {

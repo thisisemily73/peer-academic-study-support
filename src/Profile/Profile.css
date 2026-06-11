@@ -25,6 +25,14 @@
   gap: 1.25rem;
 }
 
+.resource-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 1rem;
+}
+
 .delete-btn {
   margin-top: 0.75rem;
 
@@ -45,10 +53,52 @@
   opacity: 0.9;
 }
 
-.resource-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.profile-avatar,
+.profile-avatar-fallback {
+  width: 110px;
+  height: 110px;
 
-  margin-top: 1rem;
+  border-radius: 50%;
+
+  margin: 0 auto 1rem;
+
+  border: 4px solid var(--border);
+}
+
+.profile-avatar {
+  display: block;
+  object-fit: cover;
+}
+
+.profile-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2.5rem;
+  font-weight: 700;
+
+  background: var(--primary);
+  color: white;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+
+  margin-top: 1.5rem;
+}
+
+.profile-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-stats strong {
+  font-size: 1.5rem;
+}
+
+.profile-stats span {
+  color: var(--text-light);
 }

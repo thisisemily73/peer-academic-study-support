@@ -6,6 +6,7 @@ import Notes from "./pages/Notes/Notes";
 import SATPrep from "./pages/SATPrep";
 import Community from "./pages/Community/Community";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Profile from "./Profile/Profile";
 import Upload from "./pages//Upload/Upload";
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/login"
           element={<Login />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup />}
         />
       </Routes>
     </BrowserRouter>
