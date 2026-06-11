@@ -10,7 +10,8 @@ import { toast } from "react-toastify";
 import Layout from "../../components/Layout/Layout";
 
 import "./Upload.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
@@ -20,6 +21,7 @@ export default function UploadNotes() {
   const [level, setLevel] = useState("CP");
   const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
 
   const subtopics = {
@@ -74,8 +76,18 @@ export default function UploadNotes() {
   };
 
   const handleUpload = async () => {
-    if (!title || !fileUrl) {
-      toast.error("Please enter a title and resource link.");
+    if (
+      !title ||
+      !description ||
+      !subject ||
+      !subtopic ||
+      !level ||
+      !fileUrl
+    ) {
+      toast.error(
+        "Please complete all fields."
+      );
+
       return;
     }
 
@@ -119,6 +131,16 @@ export default function UploadNotes() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+  if (!auth.currentUser) {
+    toast.error(
+      "Please log in or sign up to upload resources."
+    );
+
+    navigate("/login");
+  }
+}, [navigate]);
 
   return (
     <Layout>
@@ -186,7 +208,7 @@ export default function UploadNotes() {
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
-          
+
           <div className="form-group">
             <textarea
               placeholder="Description"
