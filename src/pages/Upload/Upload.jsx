@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { auth, db, storage } from "../../firebase";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -10,8 +10,7 @@ import { toast } from "react-toastify";
 import Layout from "../../components/Layout/Layout";
 
 import "./Upload.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
@@ -21,7 +20,6 @@ export default function UploadNotes() {
   const [level, setLevel] = useState("CP");
   const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
 
   const subtopics = {
@@ -131,16 +129,6 @@ export default function UploadNotes() {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-  if (!auth.currentUser) {
-    toast.error(
-      "Please log in or sign up to upload resources."
-    );
-
-    navigate("/login");
-  }
-}, [navigate]);
 
   return (
     <Layout>

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Home from "./pages/Home";
 import Notes from "./pages/Notes/Notes";
@@ -28,10 +28,20 @@ function App() {
 
         <Route
           path="/profile"
-          element={<Profile />} />
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/upload"
-          element={<Upload />}
+          element={
+            <ProtectedRoute>
+              <Upload />
+            </ProtectedRoute>
+          }
         />
 
         <Route

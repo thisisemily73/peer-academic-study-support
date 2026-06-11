@@ -1,14 +1,27 @@
 import Layout from "../../components/Layout/Layout";
 import { auth } from "../../firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useEffect, useState, useRef } from "react";
 
 import "./Login.css";
 
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  const toastShown = useRef(false);
+
+  useEffect(() => {
+    if (
+      location.state?.message &&
+      !toastShown.current
+    ) {
+      toast.error(location.state.message);
+      toastShown.current = true;
+    }
+  }, [location]);
 
   const handleGoogleLogin = async () => {
     try {
@@ -18,7 +31,7 @@ export default function Login() {
 
       toast.success(`Welcome, ${result.user.displayName}!`);
 
-      navigate("/");
+      // navigate("/");
     } catch (error) {
       console.error(error);
       toast.error("Login failed.");
