@@ -17,18 +17,18 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Design System
 
-* [ ] Choose color palette
-* [ ] Choose typography
-* [ ] Create reusable button styles
-* [ ] Create reusable page layout
-* [ ] Create reusable card components
+* [x] Choose color palette
+* [x] Choose typography
+* [x] Create reusable button styles
+* [x] Create reusable page layout
+* [x] Create reusable card components
 
 ## Project Structure
 
-* [ ] Create components folder
-* [ ] Create pages folder
-* [ ] Create features folder
-* [ ] Create services folder
+* [x] Create components folder
+* [x] Create pages folder
+* [x] Create features folder
+* [x] Create services folder
 
 ---
 
