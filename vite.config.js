@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "peer-academic-study-support",
+  base: "/peer-academic-study-support/",
 });
