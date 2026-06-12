@@ -3,14 +3,21 @@ import { useEffect, useState } from "react";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { auth, db } from "../../firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-
 import { toast } from "react-toastify";
 
 import Layout from "../../components/Layout/Layout";
 
 import "./Upload.css";
 import { Link } from "react-router-dom";
+
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  getDocs
+} from "firebase/firestore";
 
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
@@ -98,6 +105,32 @@ export default function UploadNotes() {
 
     try {
       setLoading(true);
+
+      const notesRef = collection(db, "notes");
+
+      const duplicateQuery = query(
+        notesRef,
+        where("fileUrl", "==", fileUrl)
+      );
+
+      const duplicateSnapshot = await getDocs(duplicateQuery);
+
+      if (!duplicateSnapshot.empty) {
+        const existingNote = duplicateSnapshot.docs[0];
+
+        const openNote = window.confirm(
+          "This note already exists. Would you like to open it?"
+        );
+
+        if (openNote) {
+          window.open(
+            existingNote.data().fileUrl,
+            "_blank"
+          );
+        }
+
+        return;
+      }
 
       await addDoc(collection(db, "notes"), {
         title,
