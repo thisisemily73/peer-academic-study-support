@@ -57,8 +57,6 @@
 .filter-row {
   display: flex;
 
-  justify-content: space-between;
-
   gap: 1rem;
 
   margin-bottom: 2rem;
@@ -74,44 +72,65 @@
   border: 1px solid var(--border);
 }
 
-.open-resource-btn {
-  display: inline-block;
-
-  margin-top: 1rem;
-
-  padding: 0.5rem 1rem;
-
-  background: var(--primary);
-
-  color: white;
-
-  border-radius: var(--radius);
-
-  text-decoration: none;
-
-  font-weight: 600;
-}
-
-.open-resource-btn:hover {
-  background: var(--primary-dark);
-}
-
+.open-resource-btn,
 .save-btn {
-  margin-left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 0.65rem 1rem;
+  min-width: 130px;
 
-  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
 
   border-radius: 10px;
-
-  background: var(--surface);
-
-  color: var(--text);
 
   font-weight: 600;
 
   transition: all 0.2s ease;
+}
+
+.open-resource-btn {
+  background: var(--primary);
+
+  color: white;
+
+  text-decoration: none;
+
+  border: none;
+}
+
+.open-resource-btn:hover {
+  background: var(--primary-dark);
+
+  transform: translateY(-2px);
+}
+
+.save-btn {
+  background: var(--surface);
+
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  margin-left: 0.75rem;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.save-btn.saved {
+  background: var(--primary);
+
+  color: white;
+
+  border-color: var(--primary);
+}
+
+.open-resource-btn:hover {
+  background: var(--primary-dark);
 }
 
 .save-btn:hover {
@@ -123,4 +142,24 @@
 .save-btn.saved {
   background: var(--primary);
   color: white;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.filter-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  color: var(--text-light);
+}
+
+.upload-filter-action {
+  margin-left: auto;
+
+  display: flex;
+  align-items: end;
 }

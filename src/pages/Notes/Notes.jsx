@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 export default function Notes() {
     const [search, setSearch] = useState("");
     const [subject, setSubject] = useState("All");
+    const [level, setLevel] = useState("All");
+    const [subtopic, setSubtopic] = useState("All");
 
     const [resources, setResources] = useState([]);
     const [savedResources, setSavedResources] = useState([]);
@@ -34,7 +36,20 @@ export default function Notes() {
             subject === "All" ||
             resource.subject === subject;
 
-        return matchesSearch && matchesSubject;
+        const matchesLevel =
+            level === "All" ||
+            resource.level === level;
+
+        const matchesSubtopic =
+            subtopic === "All" ||
+            resource.subtopic === subtopic;
+
+        return (
+            matchesSearch &&
+            matchesSubject &&
+            matchesLevel &&
+            matchesSubtopic
+        );
     });
 
     useEffect(() => {
@@ -166,25 +181,90 @@ export default function Notes() {
                     </div>
 
                     <div className="filter-row">
-                        <select
-                            value={subject}
-                            onChange={(e) =>
-                                setSubject(e.target.value)
-                            }
-                        >
-                            <option>All</option>
-                            <option>Biology</option>
-                            <option>Economics</option>
-                            <option>SAT</option>
-                            <option>Mathematics</option>
-                            <option>Computer Science</option>
-                        </select>
 
-                        <Link to="/upload">
-                            <button className="primary-btn">
-                                Upload Resource
-                            </button>
-                        </Link>
+                        <div className="filter-group">
+                            <label>Subject</label>
+
+                            <select
+                                value={subject}
+                                onChange={(e) =>
+                                    setSubject(e.target.value)
+                                }
+                            >
+                                <option>All</option>
+
+                                {[...new Set(
+                                    resources.map(
+                                        resource => resource.subject
+                                    )
+                                )]
+                                    .sort()
+                                    .map((subject) => (
+                                        <option key={subject}>
+                                            {subject}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <label>Level</label>
+
+                            <select
+                                value={level}
+                                onChange={(e) =>
+                                    setLevel(e.target.value)
+                                }
+                            >
+                                <option>All</option>
+
+                                {[...new Set(
+                                    resources.map(
+                                        resource => resource.level
+                                    )
+                                )]
+                                    .sort()
+                                    .map((level) => (
+                                        <option key={level}>
+                                            {level}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+
+                        <div className="filter-group">
+                            <label>Subtopic</label>
+
+                            <select
+                                value={subtopic}
+                                onChange={(e) =>
+                                    setSubtopic(e.target.value)
+                                }
+                            >
+                                <option>All</option>
+
+                                {[...new Set(
+                                    resources.map(
+                                        resource => resource.subtopic
+                                    )
+                                )]
+                                    .sort()
+                                    .map((topic) => (
+                                        <option key={topic}>
+                                            {topic}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
+
+                        <div className="upload-filter-action">
+                            <Link to="/upload">
+                                <button className="primary-btn">
+                                    Upload Resource
+                                </button>
+                            </Link>
+                        </div>
+
                     </div>
 
                     <div className="resource-grid">
@@ -215,8 +295,8 @@ export default function Notes() {
                                 </a>
                                 <button
                                     className={`save-btn ${savedResources.includes(resource.id)
-                                            ? "saved"
-                                            : ""
+                                        ? "saved"
+                                        : ""
                                         }`}
                                     onClick={() => handleSave(resource)}
                                 >
