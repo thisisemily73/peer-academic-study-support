@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import Home from "./pages/Home";
@@ -13,7 +13,7 @@ import Upload from "./pages//Upload/Upload";
 
 function App() {
   return (
-    <BrowserRouter basename="/peer-academic-study-support">
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Home />} />
 
@@ -58,7 +58,7 @@ function App() {
           element={<Signup />}
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
