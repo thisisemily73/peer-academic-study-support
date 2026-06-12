@@ -122,3 +122,136 @@
 .danger-btn:hover {
   opacity: 0.9;
 }
+
+.edit-btn {
+  background: var(--primary);
+
+  color: white;
+
+  border: none;
+
+  padding: 0.75rem 1rem;
+
+  border-radius: 8px;
+
+  font-weight: 600;
+
+  margin-right: 0.5rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+
+  overflow: hidden;
+
+  z-index: 1000;
+}
+
+.edit-modal {
+  width: min(600px, 90%);
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  background: var(--surface);
+
+  padding: 2rem;
+
+  border-radius: 20px;
+
+  box-shadow: var(--shadow-lg);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-modal input,
+.edit-modal textarea,
+.edit-modal select {
+  width: 100%;
+
+  padding: 0.9rem;
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  background: var(--background);
+
+  color: var(--text);
+}
+
+.edit-modal textarea {
+  min-height: 120px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.25rem;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: var(--border);
+
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.save-btn,
+.cancel-btn {
+  padding: 0.75rem 1.25rem;
+
+  min-width: 140px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.save-btn {
+  background: var(--primary);
+  color: white;
+}
+
+.save-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: var(--surface);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+}
+
+.cancel-btn:hover {
+  background: var(--background);
+}

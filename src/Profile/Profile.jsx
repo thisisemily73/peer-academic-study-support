@@ -17,11 +17,74 @@ import { deleteUser } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { updateDoc } from "firebase/firestore";
+
 export default function Profile() {
     const { currentUser } = useAuth();
     const [uploads, setUploads] = useState([]);
     const [savedResources, setSavedResources] = useState([]);
     const navigate = useNavigate();
+
+    const [editingId, setEditingId] = useState(null);
+
+    const [editTitle, setEditTitle] = useState("");
+    const [editDescription, setEditDescription] = useState("");
+    const [editFileUrl, setEditFileUrl] = useState("");
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editSubject, setEditSubject] = useState("");
+    const [editSubtopic, setEditSubtopic] = useState("");
+    const [editLevel, setEditLevel] = useState("");
+
+    const subtopics = {
+        Mathematics: [
+            "Algebra I",
+            "Algebra II",
+            "Geometry",
+            "Precalculus",
+            "Calculus AB",
+            "Calculus BC",
+            "Statistics"
+        ],
+
+        Science: [
+            "Biology",
+            "Chemistry",
+            "Physics",
+            "Environmental Science"
+        ],
+
+        English: [
+            "Literature",
+            "Writing",
+            "Grammar"
+        ],
+
+        History: [
+            "World History",
+            "US History",
+            "Government"
+        ],
+
+        Economics: [
+            "Microeconomics",
+            "Macroeconomics"
+        ],
+
+        "Computer Science": [
+            "Programming",
+            "Data Structures",
+            "Web Development"
+        ],
+
+        SAT: [
+            "Reading",
+            "Writing",
+            "Algebra",
+            "Advanced Math",
+            "Problem Solving & Data Analysis",
+            "Geometry & Trigonometry"
+        ]
+    };
 
     useEffect(() => {
         const fetchUploads = async () => {
@@ -136,6 +199,63 @@ export default function Profile() {
         }
     };
 
+    const startEditing = (note) => {
+        setEditingId(note.id);
+
+        setEditTitle(note.title);
+        setEditDescription(note.description);
+        setEditFileUrl(note.fileUrl);
+
+        setEditSubject(note.subject);
+        setEditSubtopic(note.subtopic);
+        setEditLevel(note.level);
+
+        setShowEditModal(true);
+    };
+
+    const saveChanges = async () => {
+        try {
+            await updateDoc(
+                doc(db, "notes", editingId),
+                {
+                    title: editTitle,
+                    description: editDescription,
+                    fileUrl: editFileUrl,
+
+                    subject: editSubject,
+                    subtopic: editSubtopic,
+                    level: editLevel,
+                }
+            );
+
+            setUploads(
+                uploads.map((note) =>
+                    note.id === editingId
+                        ? {
+                            ...note,
+                            title: editTitle,
+                            description: editDescription,
+                            fileUrl: editFileUrl,
+
+                            subject: editSubject,
+                            subtopic: editSubtopic,
+                            level: editLevel,
+                        }
+                        : note
+                )
+            );
+
+            toast.success("Resource updated!");
+
+            setEditingId(null);
+            setShowEditModal(false);
+
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update resource.");
+        }
+    };
+
     return (
         <Layout>
             <section className="profile-page">
@@ -185,15 +305,18 @@ export default function Profile() {
                                 key={note.id}
                                 className="upload-card"
                             >
-                                <h4>{note.title}</h4>
+                                <>
+                                    <h4>{note.title}</h4>
+
+                                    <p className="description">
+                                        {note.description}
+                                    </p>
+                                </>
 
                                 <p className="subject">
                                     {note.subject}
                                 </p>
 
-                                <p className="description">
-                                    {note.description}
-                                </p>
 
                                 <div className="resource-actions">
                                     <a
@@ -204,6 +327,13 @@ export default function Profile() {
                                     >
                                         Open Resource →
                                     </a>
+
+                                    <button
+                                        className="edit-btn"
+                                        onClick={() => startEditing(note)}
+                                    >
+                                        Edit
+                                    </button>
 
                                     <button
                                         className="delete-btn"
@@ -223,6 +353,92 @@ export default function Profile() {
                     </button>
                 </div>
             </section>
+
+            {showEditModal && (
+                <div className="modal-overlay">
+                    <div className="edit-modal">
+                        <h2>Edit Resource</h2>
+
+                        <input
+                            value={editTitle}
+                            onChange={(e) =>
+                                setEditTitle(e.target.value)
+                            }
+                            placeholder="Title"
+                        />
+
+                        <select
+                            value={editSubject}
+                            onChange={(e) => setEditSubject(e.target.value)}
+                        >
+                            <option>Mathematics</option>
+                            <option>Science</option>
+                            <option>English</option>
+                            <option>History</option>
+                            <option>Economics</option>
+                            <option>Computer Science</option>
+                            <option>SAT</option>
+                        </select>
+
+                        <select
+                            value={editSubtopic}
+                            onChange={(e) => setEditSubtopic(e.target.value)}
+                        >
+                            {subtopics[editSubject]?.map((topic) => (
+                                <option key={topic}>
+                                    {topic}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            value={editLevel}
+                            onChange={(e) => setEditLevel(e.target.value)}
+                        >
+                            <option>CP</option>
+                            <option>Honors</option>
+                            <option>AP</option>
+                            <option>College</option>
+                            <option>SAT</option>
+                        </select>
+
+                        <textarea
+                            value={editDescription}
+                            onChange={(e) =>
+                                setEditDescription(e.target.value)
+                            }
+                            placeholder="Description"
+                        />
+
+                        <input
+                            value={editFileUrl}
+                            onChange={(e) =>
+                                setEditFileUrl(e.target.value)
+                            }
+                            placeholder="Resource URL"
+                        />
+
+                        <div className="modal-actions">
+                            <button
+                                className="save-btn"
+                                onClick={saveChanges}
+                            >
+                                Save Changes
+                            </button>
+
+                            <button
+                                className="cancel-btn"
+                                onClick={() => {
+                                    setShowEditModal(false);
+                                    setEditingId(null);
+                                }}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </Layout>
     );
 }
