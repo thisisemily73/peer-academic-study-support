@@ -13,7 +13,7 @@ import Upload from "./pages//Upload/Upload";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/peer-academic-study-support">
       <Routes>
         <Route path="/" element={<Home />} />
 
