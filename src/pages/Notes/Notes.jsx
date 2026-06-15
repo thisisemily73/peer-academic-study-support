@@ -275,35 +275,65 @@ export default function Notes() {
                             >
                                 <h3>{resource.title}</h3>
 
-                                <p>
-                                    {resource.subject}
-                                    {" • "}
-                                    {resource.level}
-                                    {" "}
-                                    {resource.subtopic}
-                                </p>
+                                <div className="resource-tags">
+
+                                    <span>{resource.subject}</span>
+
+                                    <span>{resource.level}</span>
+
+                                    <span>{resource.subtopic}</span>
+
+                                </div>
 
                                 <p>{resource.description}</p>
 
-                                <a
-                                    href={resource.fileUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="open-resource-btn"
-                                >
-                                    Open Resource
-                                </a>
-                                <button
-                                    className={`save-btn ${savedResources.includes(resource.id)
-                                        ? "saved"
-                                        : ""
-                                        }`}
-                                    onClick={() => handleSave(resource)}
-                                >
-                                    {savedResources.includes(resource.id)
-                                        ? "★ Saved"
-                                        : "☆ Save"}
-                                </button>
+                                <p className="resource-domain">
+
+                                    🌐 {
+
+                                        new URL(resource.fileUrl)
+
+                                            .hostname
+
+                                            .replace("www.", "")
+
+                                    }
+
+                                </p>
+
+                                <div className="resource-actions">
+
+                                    <a
+                                        href={resource.fileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="open-resource-btn"
+                                    >
+
+                                        Open Resource
+
+                                    </a>
+
+                                    <button
+
+                                        className={`save-btn ${savedResources.includes(resource.id)
+                                            ? "saved"
+                                            : ""
+                                            }`}
+
+                                        onClick={() => handleSave(resource)}
+
+                                    >
+
+                                        {savedResources.includes(resource.id)
+
+                                            ? "★ Saved"
+
+                                            : "☆ Save"}
+
+                                    </button>
+
+                                </div>
                             </div>
                         ))}
                     </div>

@@ -38,6 +38,16 @@ Goal: Build a functional platform where students can create accounts, upload res
 * [ ] A cleaner profile page
 * [ ] Make iframe interface so you don't feel like you're "leaving PASS" every time you go to look at notes
 * [ ] Add "resource type" labels (e.g., handwritten notes, typed notes, practice problems, vocabulary)
+* [ ] REPORT A PROBLEM
+        EXAMPLE:
+        Hi! A user reported an issue with your note:
+
+        "AP Biology - Cell Cycle Notes"
+
+        Issue:
+        Link doesn't work
+
+        Please check your resource link.
 
 ---
 
