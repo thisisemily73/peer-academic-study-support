@@ -14,6 +14,7 @@ Goal: Build a functional platform where students can create accounts, upload res
 * [x] Connect GitHub repository
 * [x] Create PASS-VISION.md
 * [x] Create ROADMAP.md
+* [ ] ADD SAFETY MEASURES ON LINKS (only allow links to certain domains)
 
 ## Design System
 
@@ -22,6 +23,8 @@ Goal: Build a functional platform where students can create accounts, upload res
 * [x] Create reusable button styles
 * [x] Create reusable page layout
 * [x] Create reusable card components
+* [ ] Max out # of notes per row in NOTES page to 2-3 on big screens, and 1 on small screens
+* [ ] Make PASS mobile-friendly
 
 ## Project Structure
 
@@ -29,6 +32,12 @@ Goal: Build a functional platform where students can create accounts, upload res
 * [x] Create pages folder
 * [x] Create features folder
 * [x] Create services folder
+
+## Requested Add-Ons as an Exploratory User
+* [ ] A quick-jump button to the resource page from the profile page
+* [ ] A cleaner profile page
+* [ ] Make iframe interface so you don't feel like you're "leaving PASS" every time you go to look at notes
+* [ ] Add "resource type" labels (e.g., handwritten notes, typed notes, practice problems, vocabulary)
 
 ---
 

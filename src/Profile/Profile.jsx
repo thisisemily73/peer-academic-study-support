@@ -313,20 +313,32 @@ export default function Profile() {
                                     </p>
                                 </>
 
-                                <p className="subject">
-                                    {note.subject}
+                                <div className="resource-tags">
+                                    <span>{note.subject}</span>
+
+                                    <span>{note.subtopic}</span>
+
+                                    <span>{note.level}</span>
+                                </div>
+
+                                <p className="resource-domain">
+                                    🌐 {
+                                        new URL(note.fileUrl).hostname
+                                            .replace("www.", "")
+                                    }
                                 </p>
 
 
+                                <a
+                                    href={note.fileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="open-btn"
+                                >
+                                    Open Resource
+                                </a>
+
                                 <div className="resource-actions">
-                                    <a
-                                        href={note.fileUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="resource-link"
-                                    >
-                                        Open Resource →
-                                    </a>
 
                                     <button
                                         className="edit-btn"
@@ -341,6 +353,7 @@ export default function Profile() {
                                     >
                                         Delete
                                     </button>
+
                                 </div>
                             </div>
                         ))}
