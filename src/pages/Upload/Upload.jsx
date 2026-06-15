@@ -96,6 +96,16 @@ export default function UploadNotes() {
       return;
     }
 
+    if (!fileUrl.startsWith("http://") &&
+      !fileUrl.startsWith("https://")) {
+
+      toast.error(
+        "Please enter a valid URL."
+      );
+
+      return;
+    }
+
     const user = auth.currentUser;
 
     if (!user) {

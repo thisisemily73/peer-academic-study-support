@@ -143,14 +143,14 @@ Goal: Build a functional platform where students can create accounts, upload res
 
 ## Browse Resources
 
-* [ ] Resource cards
+* [x] Resource cards
 * [ ] Resource details page
 
 ## Search
 
 * [x] Search resources
-* [ ] Subject filters
-* [ ] Grade filters
+* [x] Subject filters
+* [x] Level filters
 
 ## Saving Resources
 
