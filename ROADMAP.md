@@ -23,7 +23,7 @@ Goal: Build a functional platform where students can create accounts, upload res
 * [x] Create reusable button styles
 * [x] Create reusable page layout
 * [x] Create reusable card components
-* [ ] Max out # of notes per row in NOTES page to 2-3 on big screens, and 1 on small screens
+* [x] Max out # of notes per row in NOTES page to 2-3 on big screens, and 1 on small screens
 * [ ] Make PASS mobile-friendly
 
 ## Project Structure
@@ -48,6 +48,23 @@ Goal: Build a functional platform where students can create accounts, upload res
         Link doesn't work
 
         Please check your resource link.
+* [ ] Add empty states
+* [ ] Sort by newest
+* [ ] Broken link reports (404)
+* [ ] Link safety
+* [ ] Better upload confirmation
+* [ ] Give you options on where to go next after uploading a resource (upload another, my profile, home)
+* [ ] Featured Resources
+* [ ] Recently Added
+* [ ] Contributor Badges
+* [ ] Report a problem
+* [ ] Add an admin panel
+* [ ] An "about" section
+
+## ADVERTISING
+* [ ] Ask friends to use it!!
+* [ ] Post on reddit
+
 
 ---
 

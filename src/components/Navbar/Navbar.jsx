@@ -10,10 +10,14 @@ import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
+import { useState } from "react";
+
+
 export default function Navbar() {
   const { currentUser } = useAuth();
   const { darkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     const confirmed = window.confirm(
@@ -35,16 +39,134 @@ export default function Navbar() {
   return (
     <nav>
       <div className="nav-container">
-        <Link to="/" className="logo">
+        <Link
+          to="/"
+          className="logo"
+          onClick={() => setMenuOpen(false)}
+        >
           PASS
         </Link>
 
-        <div className="nav-links">
-          <Link to="/notes">Notes</Link>
-          <Link to="/sat-prep">SAT Prep</Link>
-          <Link to="/community">Community</Link>
-          <Link to="/upload">Upload</Link>
+        <div className={menuOpen ? "nav-links open" : "nav-links"}>
+          <Link
+            to="/notes"
+            onClick={() => setMenuOpen(false)}
+          >
+            Notes
+          </Link>
+
+          <Link
+            to="/sat-prep"
+            onClick={() => setMenuOpen(false)}
+          >
+            SAT Prep
+          </Link>
+
+          <Link
+            to="/community"
+            onClick={() => setMenuOpen(false)}
+          >
+            Community
+          </Link>
+
+          <Link
+            to="/upload"
+            onClick={() => setMenuOpen(false)}
+          >
+            Upload
+          </Link>
+
+          <div className="mobile-only">
+
+            <button
+              onClick={toggleTheme}
+              className="mobile-theme-btn"
+            >
+
+              {darkMode
+
+                ? "☀️ Light Mode"
+
+                : "🌙 Dark Mode"}
+
+            </button>
+
+
+            {currentUser ? (
+
+              <>
+
+                <Link
+
+                  to="/profile"
+
+                  className="mobile-link"
+
+                  onClick={() => setMenuOpen(false)}
+
+                >
+
+                  Profile
+
+                </Link>
+
+
+                <button
+
+                  onClick={handleLogout}
+
+                  className="mobile-logout-btn"
+
+                >
+
+                  Logout
+
+                </button>
+
+              </>
+
+            ) : (
+
+              <>
+
+                <Link
+
+                  to="/login"
+
+                  className="mobile-link"
+
+                >
+
+                  Login
+
+                </Link>
+
+
+                <Link
+
+                  to="/signup"
+
+                  className="mobile-link"
+
+                >
+
+                  Get Started
+
+                </Link>
+
+              </>
+
+            )}
+
+          </div>
         </div>
+
+        <button
+          className="hamburger-btn"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
 
         <div className="nav-actions">
           <button

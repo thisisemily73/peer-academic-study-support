@@ -64,6 +64,33 @@
   }
 }
 
+@media (max-width: 768px) {
+
+  .filter-row {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .upload-filter-action {
+
+    width: 100%;
+
+    margin-left: 0;
+  }
+
+  .upload-filter-action button {
+
+    width: 100%;
+  }
+
+}
+
 .resource-card {
   background: var(--surface);
   border: 1px solid var(--border);

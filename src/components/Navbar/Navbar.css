@@ -6,7 +6,7 @@ nav {
 
   border-bottom: 1px solid var(--border);
 
-  background: --var(--navbar-bg);
+  background: var(--navbar-bg);
 
   backdrop-filter: blur(10px);
 
@@ -120,13 +120,142 @@ nav {
   padding: 0.4rem;
 }
 
+.hamburger-btn,
+.mobile-only {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .nav-links {
+  .nav-actions {
+
     display: none;
+
+  }
+
+  .hamburger-btn {
+
+    display: block;
+
+    background: none;
+
+    border: none;
+
+    font-size: 2rem;
+
+    cursor: pointer;
+
+    color: var(--text);
+
+    z-index: 1001;
+  }
+
+
+  .nav-links {
+
+    display: none;
+
+  }
+
+
+  .nav-links.open {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem;
+
+    position: absolute;
+
+    top: 70px;
+
+    right: 1rem;
+
+    width: 220px;
+
+    padding: 1.5rem;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow-lg);
+
+    z-index: 1000;
+
+  }
+
+
+  .nav-links.open a,
+
+  .nav-links.open button {
+
+    width: 100%;
+
+    text-align: left;
+
   }
 
   .login-btn {
     display: none;
   }
-}
 
+  .mobile-only {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: .75rem;
+
+    margin-top: 1rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid var(--border);
+
+  }
+
+
+  .mobile-link,
+
+  .mobile-theme-btn,
+
+  .mobile-logout-btn {
+
+    width: 100%;
+
+    padding: .85rem;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    background: var(--background);
+
+    border: 1px solid var(--border);
+
+    color: var(--text);
+
+    font-weight: 600;
+
+  }
+
+
+  .mobile-theme-btn,
+
+  .mobile-logout-btn {
+
+    cursor: pointer;
+
+  }
+
+
+  .mobile-logout-btn {
+
+    color: #dc2626;
+
+  }
+}
