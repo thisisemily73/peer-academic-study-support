@@ -19,38 +19,46 @@ import { Link } from "react-router-dom";
 
 export default function Notes() {
     const [search, setSearch] = useState("");
-    const [subject, setSubject] = useState("All");
-    const [level, setLevel] = useState("All");
-    const [subtopic, setSubtopic] = useState("All");
+    const [filterType, setFilterType] =
+        useState("subject");
+
+    const [filterValue, setFilterValue] =
+        useState("All");
+
+    const [activeFilters, setActiveFilters] =
+        useState([]);
 
     const [resources, setResources] = useState([]);
     const [savedResources, setSavedResources] = useState([]);
 
-    const filteredResources = resources.filter((resource) => {
-        const matchesSearch =
-            resource.title
-                .toLowerCase()
-                .includes(search.toLowerCase());
+    const filteredResources = resources.filter(
+        (resource) => {
 
-        const matchesSubject =
-            subject === "All" ||
-            resource.subject === subject;
+            const matchesSearch =
+                resource.title
+                    .toLowerCase()
+                    .includes(
+                        search.toLowerCase()
+                    );
 
-        const matchesLevel =
-            level === "All" ||
-            resource.level === level;
+            const matchesFilters =
+                activeFilters.every(filter => {
 
-        const matchesSubtopic =
-            subtopic === "All" ||
-            resource.subtopic === subtopic;
+                    return (
+                        resource[
+                        filter.type
+                        ] === filter.value
+                    );
 
-        return (
-            matchesSearch &&
-            matchesSubject &&
-            matchesLevel &&
-            matchesSubtopic
-        );
-    });
+                });
+
+            return (
+                matchesSearch &&
+                matchesFilters
+            );
+
+        }
+    );
 
     useEffect(() => {
         const fetchNotes = async () => {
@@ -158,6 +166,59 @@ export default function Notes() {
         }
     };
 
+    const handleAddFilter = () => {
+
+        if (filterValue === "All")
+            return;
+
+        const exists =
+            activeFilters.some(
+                filter =>
+
+                    filter.type ===
+                    filterType
+
+                    &&
+
+                    filter.value ===
+                    filterValue
+            );
+
+        if (exists) return;
+
+        setActiveFilters([
+            ...activeFilters,
+
+            {
+                type: filterType,
+
+                value: filterValue
+            }
+        ]);
+    };
+
+
+
+    const removeFilter = (index) => {
+
+        setActiveFilters(
+
+            activeFilters.filter(
+                (_, i) => i !== index
+            )
+
+        );
+
+    };
+
+
+
+    const removeAllFilters = () => {
+
+        setActiveFilters([]);
+
+    };
+
     return (
         <Layout>
             <section className="notes-page">
@@ -180,90 +241,175 @@ export default function Notes() {
                         />
                     </div>
 
-                    <div className="filter-row">
+                    <div className="filter-bar">
 
-                        <div className="filter-group">
-                            <label>Subject</label>
+                        <label>
 
-                            <select
-                                value={subject}
-                                onChange={(e) =>
-                                    setSubject(e.target.value)
-                                }
-                            >
-                                <option>All</option>
+                            Filter
 
-                                {[...new Set(
+                        </label>
+
+                        <select
+
+                            value={filterType}
+
+                            onChange={(e) =>
+
+                                setFilterType(
+                                    e.target.value
+                                )
+
+                            }
+
+                        >
+
+                            <option value="subject">
+
+                                Subject
+
+                            </option>
+
+                            <option value="level">
+
+                                Level
+
+                            </option>
+
+                            <option value="subtopic">
+
+                                Subtopic
+
+                            </option>
+
+                        </select>
+
+
+
+                        <select
+
+                            value={filterValue}
+
+                            onChange={(e) =>
+
+                                setFilterValue(
+                                    e.target.value
+                                )
+
+                            }
+
+                        >
+
+                            <option>
+
+                                All
+
+                            </option>
+
+                            {[
+
+                                ...new Set(
+
                                     resources.map(
-                                        resource => resource.subject
+
+                                        r =>
+
+                                            r[filterType]
+
                                     )
-                                )]
-                                    .sort()
-                                    .map((subject) => (
-                                        <option key={subject}>
-                                            {subject}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
 
-                        <div className="filter-group">
-                            <label>Level</label>
+                                )
 
-                            <select
-                                value={level}
-                                onChange={(e) =>
-                                    setLevel(e.target.value)
-                                }
-                            >
-                                <option>All</option>
+                            ]
 
-                                {[...new Set(
-                                    resources.map(
-                                        resource => resource.level
-                                    )
-                                )]
-                                    .sort()
-                                    .map((level) => (
-                                        <option key={level}>
-                                            {level}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
+                                .sort()
 
-                        <div className="filter-group">
-                            <label>Subtopic</label>
+                                .map(value => (
 
-                            <select
-                                value={subtopic}
-                                onChange={(e) =>
-                                    setSubtopic(e.target.value)
-                                }
-                            >
-                                <option>All</option>
+                                    <option key={value}>
 
-                                {[...new Set(
-                                    resources.map(
-                                        resource => resource.subtopic
-                                    )
-                                )]
-                                    .sort()
-                                    .map((topic) => (
-                                        <option key={topic}>
-                                            {topic}
-                                        </option>
-                                    ))}
-                            </select>
-                        </div>
+                                        {value}
 
-                        <div className="upload-filter-action">
-                            <Link to="/upload">
-                                <button className="primary-btn">
-                                    Upload Resource
-                                </button>
-                            </Link>
-                        </div>
+                                    </option>
+
+                                ))}
+
+                        </select>
+
+
+
+                        <button
+
+                            className="add-filter-btn"
+
+                            onClick={handleAddFilter}
+
+                        >
+
+                            + Add
+
+                        </button>
+
+
+
+                        <button
+
+                            className="clear-filter-btn"
+
+                            onClick={removeAllFilters}
+
+                        >
+
+                            Remove All
+
+                        </button>
+
+                    </div>
+
+                    <div className="active-filters">
+
+                        {
+
+                            activeFilters.map(
+
+                                (filter, index) => (
+
+                                    <div
+
+                                        key={index}
+
+                                        className="filter-pill"
+
+                                    >
+
+                                        {
+
+                                            filter.value
+
+                                        }
+
+                                        <button
+
+                                            onClick={() =>
+
+                                                removeFilter(
+                                                    index
+                                                )
+
+                                            }
+
+                                        >
+
+                                            ✕
+
+                                        </button>
+
+                                    </div>
+
+                                )
+
+                            )
+
+                        }
 
                     </div>
 
