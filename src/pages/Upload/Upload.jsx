@@ -19,6 +19,8 @@ import {
   getDocs
 } from "firebase/firestore";
 
+import { useNavigate } from "react-router-dom";
+
 export default function UploadNotes() {
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("Mathematics");
@@ -27,6 +29,11 @@ export default function UploadNotes() {
   const [level, setLevel] = useState("CP");
   const [fileUrl, setFileUrl] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [showSuccessModal, setShowSuccessModal] =
+    useState(false);
+
+  const navigate = useNavigate();
 
 
   const subtopics = {
@@ -156,7 +163,7 @@ export default function UploadNotes() {
         createdAt: serverTimestamp(),
       });
 
-      toast.success("Resource uploaded!");
+      setShowSuccessModal(true);
 
       setTitle("");
       setSubject("");
@@ -262,6 +269,92 @@ export default function UploadNotes() {
           </button>
         </div>
       </div>
+
+      {showSuccessModal && (
+
+        <div className="modal-overlay">
+
+          <div className="success-modal">
+
+            <div className="success-icon">
+
+              🎉
+
+            </div>
+
+            <h2>
+
+              Resource Uploaded!
+
+            </h2>
+
+            <p>
+
+              Your study resource is now live on PASS.
+
+              What would you like to do next?
+
+            </p>
+
+            <div className="success-actions">
+
+              <button
+
+                className="primary-btn"
+
+                onClick={() => {
+
+                  setShowSuccessModal(false);
+
+                  window.location.reload();
+
+                }}
+
+              >
+
+                Upload Another
+
+              </button>
+
+              <button
+
+                className="secondary-btn"
+
+                onClick={() =>
+
+                  navigate("/profile")
+
+                }
+
+              >
+
+                My Profile
+
+              </button>
+
+              <button
+
+                className="secondary-btn"
+
+                onClick={() =>
+
+                  navigate("/notes")
+
+                }
+
+              >
+
+                Browse Resources
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
     </Layout>
   );
 }
