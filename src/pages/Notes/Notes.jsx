@@ -365,123 +365,110 @@ export default function Notes() {
 
                     </div>
 
-                    <div className="active-filters">
+                    <div className="resource-grid">
 
-                        {
+                        {filteredResources.length === 0 ? (
 
-                            activeFilters.map(
+                            <div className="empty-state">
 
-                                (filter, index) => (
+                                <h2>📚 No resources found</h2>
 
-                                    <div
+                                <p>
+                                    Try changing your filters or be the first
+                                    to upload a resource!
+                                </p>
 
-                                        key={index}
+                                <Link to="/upload">
 
-                                        className="filter-pill"
+                                    <button className="primary-btn">
 
-                                    >
+                                        Upload Resource
 
-                                        {
+                                    </button>
 
-                                            filter.value
+                                </Link>
+
+                            </div>
+
+                        ) : (
+
+                            filteredResources.map((resource) => (
+
+                                <div
+                                    key={resource.id}
+                                    className="resource-card"
+                                >
+
+                                    <h3>{resource.title}</h3>
+
+                                    <div className="resource-tags">
+
+                                        <span>{resource.subject}</span>
+
+                                        <span>{resource.level}</span>
+
+                                        <span>{resource.subtopic}</span>
+
+                                    </div>
+
+                                    <p>{resource.description}</p>
+
+                                    <p className="resource-domain">
+
+                                        🌐 {
+
+                                            new URL(resource.fileUrl)
+                                                .hostname
+                                                .replace("www.", "")
 
                                         }
 
+                                    </p>
+
+                                    <div className="resource-actions">
+
+                                        <a
+                                            href={resource.fileUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="open-resource-btn"
+                                        >
+
+                                            Open Resource
+
+                                        </a>
+
                                         <button
 
-                                            onClick={() =>
+                                            className={`save-btn ${savedResources.includes(resource.id)
+                                                    ? "saved"
+                                                    : ""
+                                                }`}
 
-                                                removeFilter(
-                                                    index
-                                                )
-
-                                            }
+                                            onClick={() => handleSave(resource)}
 
                                         >
 
-                                            ✕
+                                            {
+
+                                                savedResources.includes(resource.id)
+
+                                                    ? "★ Saved"
+
+                                                    : "☆ Save"
+
+                                            }
 
                                         </button>
 
                                     </div>
 
-                                )
-
-                            )
-
-                        }
-
-                    </div>
-
-                    <div className="resource-grid">
-                        {filteredResources.map((resource) => (
-                            <div
-                                key={resource.id}
-                                className="resource-card"
-                            >
-                                <h3>{resource.title}</h3>
-
-                                <div className="resource-tags">
-
-                                    <span>{resource.subject}</span>
-
-                                    <span>{resource.level}</span>
-
-                                    <span>{resource.subtopic}</span>
-
                                 </div>
 
-                                <p>{resource.description}</p>
+                            ))
 
-                                <p className="resource-domain">
+                        )}
 
-                                    🌐 {
-
-                                        new URL(resource.fileUrl)
-
-                                            .hostname
-
-                                            .replace("www.", "")
-
-                                    }
-
-                                </p>
-
-                                <div className="resource-actions">
-
-                                    <a
-                                        href={resource.fileUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="open-resource-btn"
-                                    >
-
-                                        Open Resource
-
-                                    </a>
-
-                                    <button
-
-                                        className={`save-btn ${savedResources.includes(resource.id)
-                                            ? "saved"
-                                            : ""
-                                            }`}
-
-                                        onClick={() => handleSave(resource)}
-
-                                    >
-
-                                        {savedResources.includes(resource.id)
-
-                                            ? "★ Saved"
-
-                                            : "☆ Save"}
-
-                                    </button>
-
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </section>
