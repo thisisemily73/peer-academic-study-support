@@ -76,6 +76,13 @@ export default function Navbar() {
             Upload
           </Link>
 
+          <Link
+            to="/feedback"
+            onClick={() => setMenuOpen(false)}
+          >
+            Feedback
+          </Link>
+
           <div className="mobile-only">
 
             <button

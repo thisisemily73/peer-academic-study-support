@@ -10,6 +10,7 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Profile from "./Profile/Profile";
 import Upload from "./pages//Upload/Upload";
+import Feedback from "./pages/Feedback/Feedback";
 
 function App() {
   return (
@@ -57,6 +58,8 @@ function App() {
           path="/signup"
           element={<Signup />}
         />
+
+        <Route path="/feedback" element={<Feedback />} />
       </Routes>
     </HashRouter>
   );

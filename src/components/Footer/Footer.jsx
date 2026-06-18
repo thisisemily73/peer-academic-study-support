@@ -17,6 +17,7 @@ export default function Footer() {
           <Link to="/sat-prep">SAT Prep</Link>
           <Link to="/community">Community</Link>
           <Link to="/upload">Upload</Link>
+          <Link to="/feedback">Feedback</Link>
         </div>
       </div>
 
